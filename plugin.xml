@@ -25,7 +25,6 @@
 
             <config-file target="AndroidManifest.xml" parent="/manifest">
                 <uses-permission android:name="android.permission.BLUETOOTH" />
-                <uses-permission android:name="android.permission.READ_PHONE_STATE" />
             </config-file>
 
             <source-file src="src/android/StarIOAdapter.java" target-dir="src/com/uforge/plugins/" />
