@@ -5,4 +5,4 @@ Just a phonegap adapter to allow raw printing from Javascript to a Star thermal 
 
 Use the standard phonegap/cordova way to install it
 
-`phonegap local plugin add git@github.com:vshjxyz/StarIOAdapter.git`
+`phonegap local plugin add https://github.com/vshjxyz/StarIOAdapter`
