@@ -9,6 +9,8 @@ import com.starmicronics.stario.PortInfo;
 import com.starmicronics.stario.StarIOPort;
 import com.starmicronics.stario.StarIOPortException;
 import com.starmicronics.stario.StarPrinterStatus;
+
+
 public class PrinterFunctions
 {
     /**
@@ -46,16 +48,20 @@ public class PrinterFunctions
     }
 
     /**
-     * @return the port name of the first paired bluetooth device
+     * Using the portNameSearch parameter, this method searches for the first printer that corresponds to the
+     * search
+     * @param portNameSearch the name of the printer to search (example BT: or TCP:xxx.xxx.xxx.xxx)
+     * @return
      */
-    public static String getFirstBTPrinter() {
+    public static String getFirstPrinter(String portNameSearch) {
         String portName = "";
-        List<PortInfo> BTPortList;
+        List<PortInfo> portList;
         try {
-            BTPortList  = StarIOPort.searchPrinter("BT:");
+            portList  = StarIOPort.searchPrinter(portNameSearch);
 
-            for (PortInfo portInfo : BTPortList) {
+            for (PortInfo portInfo : portList) {
                 portName = portInfo.getPortName();
+                break;
             }
         } catch (StarIOPortException e) {
             e.printStackTrace();
@@ -63,11 +69,9 @@ public class PrinterFunctions
         return portName;
     }
 
-    private static byte[] convertFromListByteArrayTobyteArray(List<Byte> ByteArray)
-    {
+    private static byte[] convertFromListByteArrayTobyteArray(List<Byte> ByteArray) {
         byte[] byteArray = new byte[ByteArray.size()];
-        for(int index = 0; index < byteArray.length; index++)
-        {
+        for(int index = 0; index < byteArray.length; index++) {
             byteArray[index] = ByteArray.get(index);
         }
 

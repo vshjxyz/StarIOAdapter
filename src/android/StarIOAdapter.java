@@ -32,7 +32,12 @@ public class StarIOAdapter extends CordovaPlugin {
             cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
                     try {
-                        currentPluginInstance.check(currentCallbackContext);
+
+                        if(Arguments.length() < 1) {
+                            throw new Exception("You must specify a portName search parameter");
+                        }
+
+                        currentPluginInstance.check(currentCallbackContext, Arguments.getString(0));
                     } catch (Exception e) {
                         currentCallbackContext.error(e.getMessage());
                     }
@@ -45,10 +50,14 @@ public class StarIOAdapter extends CordovaPlugin {
                     try {
                         String portSettings = "";
 
-                        if(Arguments.length() == 2) {
-                            portSettings = Arguments.getString(1);
+                        if(Arguments.length() < 2) {
+                            throw new Exception("You must specify a portName search parameter");
                         }
-                        currentPluginInstance.rawPrint(currentCallbackContext, Arguments.getString(0), portSettings);
+
+                        if(Arguments.length() == 3) {
+                            portSettings = Arguments.getString(2);
+                        }
+                        currentPluginInstance.rawPrint(currentCallbackContext, Arguments.getString(0), Arguments.getString(1), portSettings);
                     } catch (Exception e) {
                         currentCallbackContext.error(e.getMessage());
                     }
@@ -60,15 +69,15 @@ public class StarIOAdapter extends CordovaPlugin {
     }
 
     /**
-     * This method check the status of the first paired bluetooth device (we assume it's a printer) and returns "OK" to the phonegap plugin if it's online
+     * This method check the status of the first paired device (we assume it's a printer) and returns "OK" to the phonegap plugin if it's online
      * @param callbackContext the callback context of the action
      */
-    private void check(CallbackContext callbackContext) {
+    private void check(CallbackContext callbackContext, String portNameSearch) {
         String portName = "";
         String portSettings = "";
         Context context = this.cordova.getActivity().getApplicationContext();
 
-        portName = PrinterFunctions.getFirstBTPrinter();
+        portName = PrinterFunctions.getFirstPrinter(portNameSearch);
 
         try {
             StarPrinterStatus status = PrinterFunctions.GetStatus(context, portName, portSettings, true);
@@ -86,19 +95,19 @@ public class StarIOAdapter extends CordovaPlugin {
     }
 
     /**
-     * This method sends a print command to the printer using the first available paired bluetooth device (we assume it is a printer)
+     * This method sends a print command to the printer using the first available paired device (we assume it is a printer)
      * @param callbackContext the callback context of the action
      * @param message the string containing all the content to print
      * @param portSettings the port settings for the connection to the printer ("mini" if you are printing on star portable printers)
      */
-    private void rawPrint(CallbackContext callbackContext, String message, String portSettings) {
+    private void rawPrint(CallbackContext callbackContext, String message, String portNameSearch, String portSettings) {
         String portName = "";
         Context context = this.cordova.getActivity().getApplicationContext();
         byte[] data;
         ArrayList<Byte> list = new ArrayList<Byte>();
         Byte[] tempList;
 
-        portName = PrinterFunctions.getFirstBTPrinter();
+        portName = PrinterFunctions.getFirstPrinter(portNameSearch);
 
         data = message.getBytes();
         tempList = new Byte[data.length];
