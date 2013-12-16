@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<plugin xmlns="http://cordova.apache.org/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="com.uforge.plugins.StarIOAdapter" version="1.0.0" versionCode="3">
+<plugin xmlns="http://cordova.apache.org/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="com.uforge.plugins.StarIOAdapter" version="1.0.1" versionCode="4">
     <name>StarIOAdapter</name>
     <description>
         Just a phonegap adapter to allow raw printing from Javascript to a Star thermal printer via Bluetooth
