@@ -1,9 +1,9 @@
 StarIOAdapter
 =============
 
-Just a phonegap adapter to allow raw printing from Javascript to a Star thermal printer via Bluetooth
+Just a phonegap adapter to allow raw printing from Javascript to a Star thermal printer via Bluetooth.
 
-Use the standard phonegap/cordova way to install it
+Use the standard phonegap/cordova way to install it.
 
 `phonegap local plugin add https://github.com/vshjxyz/StarIOAdapter`
 
@@ -26,6 +26,6 @@ StarIOAdapter.rawprint("Text to print", "BT:", function() {
 StarIOAdapter.check("TCP:192.168.1.200", function() {
     alert("The printer is Online and ready");
 }, function(error) {
-    alert("The was a problem with the printer: " + error)
+    alert("The was a problem with the printer: " + error);
 });
 ```
