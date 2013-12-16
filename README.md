@@ -13,15 +13,17 @@ Examples
 --------
 
 ```javascript
-// This will search the first paired BT device and send the text specified to it using the Star SDK
+// This will search the first paired BT device and send the text 
+// specified to it using the Star SDK
 StarIOAdapter.rawprint("Text to print", "BT:", function() {
     alert("printed");
 });
 ```
 
 ```javascript
-// This will search the first paired BT device and send the text specified to it using the Star SDK
-StarIOAdapter.check("BT:", function() {
+// This method checks if the printer that has that particular IP is
+// Online and ready to print
+StarIOAdapter.check("TCP:192.168.1.200", function() {
     alert("The printer is Online and ready");
 }, function(error) {
     alert("The was a problem with the printer: " + error)
